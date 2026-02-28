@@ -1,0 +1,87 @@
+"
+" My basic vim configuration
+"
+
+let $LANG='en'
+
+" Show lines and current position
+set ruler
+set number
+
+" Highlight search results
+set hlsearch
+
+" The notorious tabs/spaces issue
+set tabstop=2
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+set autoindent
+set smartindent
+set cindent
+
+" Turn on file detection
+filetype indent on
+
+" Display
+compiler ruby
+syntax on
+
+" PLUGINS
+" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+" " Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+
+
+" Download plugins to dir
+call plug#begin('~/.vim/plugged')
+
+Plug 'tomtom/tcomment_vim' " https://github.com/tomtom/tcomment_vim
+Plug 'preservim/nerdtree' " https://github.com/preservim/nerdtree
+Plug 'junegunn/fzf' " https://github.com/junegunn/fzf/blob/master/README-VIM.md
+Plug 'junegunn/fzf.vim' " https://github.com/junegunn/fzf/blob/master/README-VIM.md
+
+" End plugin list
+call plug#end()
+
+" PLUGIN SETTINGS
+" Tcomment
+map <silent> <LocalLeader>cc :TComment<CR> " allow \cc to comment a selection
+
+" NERDTree
+map <silent> <LocalLeader>nt :NERDTreeToggle<CR> " toggle nerdtre
+map <silent> <LocalLeader>nf :NERDTreeFind<CR> " find file in nerdtree
+map <silent> <LocalLeader>nr :NERDTree<CR> " reload nerdtree
+
+" FZF/Fuzzy Find
+let $FZF_DEFAULT_COMMAND = 'find . -name "*" -type f 2>/dev/null
+                            \ | grep -v -E "tmp\/|.gitmodules|.git\/|deps\/|_build\/|node_modules\/|vendor\/"
+                            \ | sed "s|^\./||"'
+let $FZF_DEFAULT_OPTS = '--reverse'
+let g:fzf_tags_command = 'ctags -R --exclude=".git\|.svn\|log\|tmp\|db\|pkg" --extra=+f --langmap=Lisp:+.clj'
+
+function! SmartFuzzy()
+  let root = split(system('git rev-parse --show-toplevel'), '\n')
+  if len(root) == 0 || v:shell_error
+    Files
+  else
+    GFiles -co --exclude-standard -- . ':!:vendor/*'
+  endif
+endfunction
+
+command! -nargs=* SmartFuzzy :call SmartFuzzy()
+map <silent> <leader>ff :SmartFuzzy<CR>
+
+" TODO!!!
+"
+" Add spec running plugin
+" Add whitespace clearning plugin
