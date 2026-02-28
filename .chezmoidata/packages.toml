@@ -1,0 +1,49 @@
+[homebrew]
+  taps = []
+
+  brews = [
+    "git",
+    "vim",
+    "tmux",
+  ]
+
+  casks = [
+    # Browsers & Dev Tools
+    "google-chrome",
+    "iterm2",
+    "visual-studio-code",
+    "docker",
+    "postman",
+
+    # Productivity
+    "rectangle",
+    "caffeine",
+    "spark",
+    "productive",
+
+    # Communication & Collaboration
+    "slack",
+    "zoom",
+    "whatsapp",
+
+    # Microsoft Office
+    "microsoft-teams",
+    "microsoft-word",
+    "microsoft-excel",
+
+    # Creative & Design
+    "figma",
+
+    # AI
+    "chatgpt",
+    "claude",
+
+    # Entertainment and Personal
+    "spotify",
+    "steam",
+    "todoist",
+
+    # Security & Privacy
+    "1password",
+    "nordvpn",
+  ]

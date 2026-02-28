@@ -1,0 +1,33 @@
+#!/bin/sh
+# Install Homebrew packages (runs once on first apply)
+
+set -e
+
+# Install Homebrew if not present
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+echo "Updating Homebrew..."
+brew update
+
+# Install formulae (CLI tools)
+echo "Installing Homebrew formulae..."
+{{ range .homebrew.brews -}}
+brew install {{ . }} || true
+{{ end }}
+
+# Install casks (GUI apps)
+echo "Installing Homebrew casks..."
+{{ range .homebrew.casks -}}
+brew install --cask {{ . }} || true
+{{ end }}
+
+# Install Xcode Command Line Tools
+if ! xcode-select -p >/dev/null 2>&1; then
+  echo "Installing Xcode Command Line Tools..."
+  xcode-select --install
+fi
+
+echo "Done installing packages."

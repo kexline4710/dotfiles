@@ -1,0 +1,17 @@
+{
+  "vim.insertModeKeyBindings": [],
+  "editor.minimap.enabled": false,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.printWidth": 80,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "explorer.confirmDragAndDrop": false,
+  "prisma.showPrismaDataPlatformNotification": false,
+  "claudeCode.preferredLocation": "panel"
+}
