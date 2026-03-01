@@ -16,7 +16,7 @@ Personal dotfiles and machine setup managed with [chezmoi](https://chezmoi.io).
 ### 1. Install chezmoi
 
 ```sh
-curl -fsLS get.chezmoi.io | sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 ```
 
 ### 2. Create your local chezmoi config
@@ -40,6 +40,7 @@ chezmoi apply
 ```
 
 This will:
+
 - Copy all dotfiles to their correct locations
 - Install Homebrew (if not present) and all packages
 - Install Xcode Command Line Tools (if not present)
