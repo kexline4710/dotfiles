@@ -3,9 +3,6 @@
 
 set -e
 
-# Pre-authenticate sudo so Homebrew's installer can elevate without prompting mid-script
-sudo -v
-
 # Install Homebrew if not present
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing Homebrew..."
