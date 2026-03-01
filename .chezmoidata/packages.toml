@@ -6,6 +6,11 @@
     "vim",
     "tmux",
     "dockutil",
+    "pyenv",
+    "rbenv",
+    "ruby-build",
+    "node",
+    "npm",
   ]
 
   casks = [

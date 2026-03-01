@@ -9,6 +9,9 @@ if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# Ensure brew is in PATH for the rest of this script (required on Apple Silicon)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 echo "Updating Homebrew..."
 brew update
 
@@ -23,6 +26,12 @@ echo "Installing Homebrew casks..."
 {{ range .homebrew.casks -}}
 brew install --cask {{ . }} || true
 {{ end }}
+
+# Install NVM (Node Version Manager) via official install script
+if [ ! -d "$HOME/.nvm" ]; then
+  echo "Installing NVM..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/HEAD/install.sh | bash
+fi
 
 # Install Xcode Command Line Tools
 if ! xcode-select -p >/dev/null 2>&1; then
