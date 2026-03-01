@@ -3,17 +3,6 @@
 
 set -e
 
-# Install Xcode Command Line Tools first (required by Homebrew)
-if ! xcode-select -p >/dev/null 2>&1; then
-  echo "Installing Xcode Command Line Tools..."
-  xcode-select --install
-  echo "Waiting for Xcode Command Line Tools to finish installing..."
-  until xcode-select -p >/dev/null 2>&1; do
-    sleep 5
-  done
-  echo "Xcode Command Line Tools installed."
-fi
-
 # Install Homebrew if not present
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing Homebrew..."

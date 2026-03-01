@@ -13,39 +13,24 @@ Personal dotfiles and machine setup managed with [chezmoi](https://chezmoi.io).
 
 ## Setting up a new machine
 
-### 1. Install chezmoi
+### 1. Run the bootstrap script
+
+This will prompt you for your GitHub username, name, and email, then handle everything automatically:
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+sh -c "$(curl -fsLS raw.githubusercontent.com/YOUR_GITHUB_USERNAME/dotfiles/main/bootstrap.sh)"
 ```
 
-### 2. Create your local chezmoi config
+The bootstrap script will:
 
-This file stores your personal details and is **never committed to the repo**. Create it before applying:
-
-```sh
-mkdir -p ~/.config/chezmoi
-cat > ~/.config/chezmoi/chezmoi.toml << EOF
-[data]
-  name = "Your Name"
-  email = "your@email.com"
-EOF
-```
-
-### 3. Initialise and apply
-
-```sh
-chezmoi init https://github.com/kexline4710/dotfiles.git
-chezmoi apply
-```
-
-This will:
-
-- Copy all dotfiles to their correct locations
-- Install Homebrew (if not present) and all packages
-- Install Xcode Command Line Tools (if not present)
-- Apply macOS keyboard settings
-- Install VS Code extensions (if `code` CLI is available)
+- Prompt for your GitHub username, name, and email
+- Install Xcode Command Line Tools (required by git before chezmoi can clone the repo)
+- Create the local chezmoi config with your name and email (never committed to the repo)
+- Install chezmoi and apply your dotfiles, which will:
+  - Copy all dotfiles to their correct locations
+  - Install Homebrew (if not present) and all packages
+  - Apply macOS keyboard settings
+  - Install VS Code extensions (if `code` CLI is available)
 
 ---
 
