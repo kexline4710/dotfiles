@@ -15,9 +15,6 @@ read -r USER_NAME
 printf "Email address: "
 read -r USER_EMAIL
 
-# Pre-authenticate sudo (required by Homebrew installer later; must happen here while terminal is interactive)
-sudo -v
-
 # Install Xcode Command Line Tools (required by git, which chezmoi needs to clone the repo)
 if ! xcode-select -p >/dev/null 2>&1; then
   echo "Installing Xcode Command Line Tools..."
