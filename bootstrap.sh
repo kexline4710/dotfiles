@@ -34,5 +34,11 @@ cat > "$HOME/.config/chezmoi/chezmoi.toml" << EOF
   email = "$USER_EMAIL"
 EOF
 
-# Install chezmoi and apply dotfiles
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply "$GITHUB_USERNAME"
+# Install chezmoi and clone the dotfiles repo (without applying yet)
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init "$GITHUB_USERNAME"
+
+# Run the install packages script directly with a TTY (chezmoi scripts don't get a TTY, breaking sudo)
+"$HOME/.local/bin/chezmoi" execute-template < "$HOME/.local/share/chezmoi/run_once_1-install-packages.sh.tmpl" | sh
+
+# Apply remaining dotfiles and run remaining scripts
+"$HOME/.local/bin/chezmoi" apply

@@ -6,8 +6,6 @@ set -e
 # Install Homebrew if not present
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing Homebrew..."
-  echo "Please enter your password to install Homebrew:"
-  sudo -v
   NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
