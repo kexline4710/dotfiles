@@ -3,12 +3,6 @@
 
 set -e
 
-# Install Homebrew if not present
-if ! command -v brew >/dev/null 2>&1; then
-  echo "Installing Homebrew..."
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-
 # Ensure brew is in PATH for the rest of this script (required on Apple Silicon)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 

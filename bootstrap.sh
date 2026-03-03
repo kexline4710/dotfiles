@@ -26,6 +26,12 @@ if ! xcode-select -p >/dev/null 2>&1; then
   echo "Xcode Command Line Tools installed."
 fi
 
+# Install Homebrew if not present
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
 # Create chezmoi config before init so templates have access to name and email
 mkdir -p "$HOME/.config/chezmoi"
 cat > "$HOME/.config/chezmoi/chezmoi.toml" << EOF
@@ -35,10 +41,4 @@ cat > "$HOME/.config/chezmoi/chezmoi.toml" << EOF
 EOF
 
 # Install chezmoi and clone the dotfiles repo (without applying yet)
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init "$GITHUB_USERNAME"
-
-# Run the install packages script directly with a TTY (chezmoi scripts don't get a TTY, breaking sudo)
-"$HOME/.local/bin/chezmoi" execute-template < "$HOME/.local/share/chezmoi/run_once_1-install-packages.sh.tmpl" | sh
-
-# Apply remaining dotfiles and run remaining scripts
-"$HOME/.local/bin/chezmoi" apply
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init apply "$GITHUB_USERNAME"
